@@ -1,0 +1,29 @@
+static void Gauss(double[,] a, double[] b, ref double[] x)
+        {
+            int row = b.Length;
+            double d;
+            double s;
+            for (int k = 0; k < row; k++)
+            {
+                for (int j = k + 1; j < row; j++)
+                {
+                    d = a[j, k] / a[k, k];
+                    for (int i = k; i < row; i++)
+                    {
+                        a[j, i] = a[j, i] - d * a[k, i];
+                    }
+                    b[j] = b[j] - d * b[k];
+                }
+            }
+      
+            for (int k = row - 1; k >= 0; k--)
+            {
+                d = 0;
+                for (int j = k; j < row; j++)
+                {
+                    s = a[k, j] * x[j];
+                    d += s;
+                }
+                x[k] = (b[k] - d) / a[k, k];
+            }
+        }
